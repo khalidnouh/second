@@ -1,24 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
-  labels:
-    app: gs-spring-boot-k8s
-  name: gs-spring-boot-k8s
+  name: second-demo
+  namespace: default
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: gs-spring-boot-k8s
-  strategy: {}
+      bb: web
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        app: gs-spring-boot-k8s
+        bb: web
     spec:
       containers:
-      - image: spring-k8s/gs-spring-boot-k8s:snapshot
-        name: gs-spring-boot-k8s
-        resources: {}
-status: {}
+      - name: second-demo
+        image: second-demo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: second-demo-service
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    bb: web
+  ports:
+  - port: 8686
+    targetPort: 8686
+    nodePort: 30001

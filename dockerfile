@@ -1,5 +1,5 @@
 FROM openjdk:8-jdk-alpine
-ARG target/first.jar 
-EXPOSE 8085
-COPY target/first.jar /first.jar
-ENTRYPOINT ["java","-jar","first.jar"]
+ARG target/second.jar 
+EXPOSE 8686
+COPY target/second.jar /second.jar
+ENTRYPOINT ["java","-jar","second.jar"]
